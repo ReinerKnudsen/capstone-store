@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import {
   signInExistingUser,
@@ -7,6 +7,8 @@ import {
 } from '../../utils/firebase.utils.jsx';
 import FormInput from '../form-input/form-input.component.jsx';
 import Button from '../button/button.component.jsx';
+import { UserContext } from '../../contexts/user.context.jsx';
+
 import './sign-in-form.styles.scss';
 
 const initialFormData = {
@@ -18,6 +20,8 @@ function SignInForm() {
   const [formData, setFormData] = useState(initialFormData);
   const { email, password } = formData;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetForm = () => {
     setFormData(initialFormData);
   };
@@ -26,13 +30,14 @@ function SignInForm() {
     // from the total response all we need is the user object
     const { user } = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
+    setCurrentUser(user);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password);
     try {
       const { user } = await signInExistingUser(email, password);
+      setCurrentUser(user);
       resetForm();
     } catch (error) {
       switch (error.code) {
