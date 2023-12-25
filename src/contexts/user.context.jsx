@@ -1,4 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from '../utils/firebase.utils';
 
 // the context is the actual VALUE we want to exit from other components
 export const UserContext = createContext({
@@ -12,6 +14,20 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
+
+  useEffect(() => {
+    // this initiates the Listener as soon as the component mounts
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        // in the follwoing function we verify if the user already exsists
+        createUserDocumentFromAuth(user);
+      }
+      // if the user logged out, 'user' will be null
+      // if a user signed in, 'user' will be the user object
+      setCurrentUser(user);
+    });
+    return unsubscribe;
+  }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

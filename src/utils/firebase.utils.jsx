@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -78,3 +79,7 @@ export const signInExistingUser = async (email, password) => {
 };
 
 export const signOutCurrentUser = async () => await signOut(auth);
+
+// This is a permanently open listener, which triggers the callback function
+// every time 'auth' changes
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
