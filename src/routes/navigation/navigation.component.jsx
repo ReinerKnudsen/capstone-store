@@ -3,10 +3,10 @@ import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../images/crown.svg';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
-import CardDropwdown from '../../components/card-dropdown/card-dropdown.component';
+import CartDropwdown from '../../components/cart-dropdown/cart-dropdown.component';
 
 import { UserContext } from '../../contexts/user.context';
-import { CartContext } from '../../contexts/card.context';
+import { CartContext } from '../../contexts/cart.context';
 import { signOutCurrentUser } from '../../utils/firebase.utils';
 
 import './navigation.styles.scss';
@@ -36,7 +36,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        {isCartOpen && <CardDropwdown />}
+        {isCartOpen && <CartDropwdown />}
       </div>
       <Outlet />
     </Fragment>
