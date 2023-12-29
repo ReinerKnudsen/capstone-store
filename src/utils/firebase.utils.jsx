@@ -9,7 +9,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,8 +47,50 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
+// The following function we used to once upload a js-data-file to
+// the firebase database
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  // we first create a new reference to a collection on firebase
+  // if this collection does not exist, firebase will create the reference anyway
+  const collectionRef = collection(db, collectionKey);
+
+  // We create a new batch which is a transaction
+  const batch = writeBatch(db);
+
+  // for each object to add we will...
+  objectsToAdd.forEach((object) => {
+    //... create a new doc (remember, if it doesn't exist, it will created anyway)
+    // in our collection for each Element with a title (which is the Categories)
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    // we add the entire object into the given document
+    batch.set(docRef, object);
+  });
+
+  // when everything worked so far, let's commit the batch (which will be async)
+  await batch.commit();
+};
+
+// the following function retrieves all our product data from the firebase database
+export const getCategoriesAndDcouments = async () => {
+  const collectionRef = collection(db, 'categories');
+
+  // this will give us a snapshot of the collection
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  // We call the current value for reduce 'docSnapShot'
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    // we destructure off the title and the items of the current docSnaphot
+    const { title, items } = docSnapshot.data();
+    // the acc on position [title] is set to the items
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+  return categoryMap;
+};
+
 // we can pass 'additional information' as an optional parameter (since we don't enforce
-// that is has to be there) ... -> see below
+// it has to be there) ... -> see below
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
   const userDocRef = doc(db, 'users', userAuth.uid);

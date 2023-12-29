@@ -1,17 +1,19 @@
-import { useContext } from 'react';
-import { ProductsContext } from '../../contexts/products.context';
+import { Route, Routes } from 'react-router-dom';
+
+import CategoriesPreview from '../categories-preview/categories-preview.component';
+import Category from '../category/category.component';
+
 import './shop.styles.scss';
 
-import ProductCard from '../../components/product-card/product-card-component';
-
 function Shop() {
-  const { products } = useContext(ProductsContext);
   return (
-    <div className='products-container'>
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
+    <Routes>
+      <Route index element={<CategoriesPreview />} />
+
+      {/* by setting a parameter we can create a dynamic route.
+          the parameter is available in the target component */}
+      <Route path=':category' element={<Category />} />
+    </Routes>
   );
 }
 

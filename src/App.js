@@ -11,7 +11,11 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path='shop' element={<Shop />} />
+        {/*   this makes shop nestable; we can now have additional routes additional to
+              shop with shop as base (e.g. shop/hats, shop/jackets);
+              the actual extension is done in the shop component
+         */}
+        <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
         <Route path='checkout' element={<Checkout />} />
       </Route>
