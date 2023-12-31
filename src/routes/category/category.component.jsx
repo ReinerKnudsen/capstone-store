@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CategoriesContext } from '../../contexts/categories.context';
 import ProductCard from '../../components/product-card/product-card.component';
 
-import './category.styles.scss';
+import { CategoryContainer, CategoryTitle } from './category.styles.jsx';
 
 const Category = () => {
   const { category } = useParams();
@@ -21,18 +21,16 @@ const Category = () => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
-  const { title } = categoriesMap;
-
   return (
     <Fragment>
-      <h2 className='category-title'>{category.toUpperCase()}</h2>
-      <div className='category-container'>
+      <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
+      <CategoryContainer>
         {/* we introduce the 'products &&' to make sure the ProductCard only renders
 					when the products are actually available; this prevents issues when we first
 					render and the call to firebase hasn't finished yet
 			*/}
         {products && products.map((product) => <ProductCard key={product.id} product={product} />)}
-      </div>
+      </CategoryContainer>
     </Fragment>
   );
 };

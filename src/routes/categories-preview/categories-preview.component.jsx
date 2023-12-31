@@ -4,7 +4,6 @@ import CategoryPreview from '../../components/category-preview/category-preview.
 
 function CategoriesPreview() {
   const { categoriesMap } = useContext(CategoriesContext);
-  const { title } = categoriesMap;
   return (
     <Fragment>
       {

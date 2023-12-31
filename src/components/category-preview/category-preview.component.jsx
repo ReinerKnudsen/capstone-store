@@ -1,17 +1,18 @@
 import ProductCard from '../product-card/product-card.component';
-import { Link } from 'react-router-dom';
 
-import './category-preview.styles.scss';
+import {
+  CategoryPreviewMap,
+  CategoryPreviewContainer,
+  CategoryTitle,
+} from './category-preview.styles';
 
 const CategoryPreview = ({ title, products }) => {
   return (
-    <div className='category-preview-container'>
+    <CategoryPreviewContainer>
       <h2>
-        <Link className='title' to={title}>
-          {title.toUpperCase()}
-        </Link>
+        <CategoryTitle to={title}>{title.toUpperCase()}</CategoryTitle>
       </h2>
-      <div className='preview'>
+      <CategoryPreviewMap>
         {
           // this filters out all elements with the index being > 4
           // the '_' ignores the first parameter
@@ -21,8 +22,8 @@ const CategoryPreview = ({ title, products }) => {
               <ProductCard key={product.id} product={product} />
             ))
         }
-      </div>
-    </div>
+      </CategoryPreviewMap>
+    </CategoryPreviewContainer>
   );
 };
 

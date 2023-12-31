@@ -4,7 +4,7 @@ import { signInExistingUser, signInWithGooglePopup } from '../../utils/firebase.
 import FormInput from '../form-input/form-input.component.jsx';
 import Button from '../button/button.component.jsx';
 
-import './sign-in-form.styles.scss';
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles.jsx';
 
 const initialFormData = {
   email: '',
@@ -49,7 +49,7 @@ function SignInForm() {
   };
 
   return (
-    <div className='sign-up-container'>
+    <SignInContainer>
       <h2>I already have an account</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -70,16 +70,16 @@ function SignInForm() {
           value={password}
           onChange={handleChange}
         />
-        <div className='buttons-container'>
+        <ButtonsContainer>
           <Button buttonType='default' type='submit'>
             Sign in
           </Button>
           <Button buttonType='google-sign-in' type='button' onClick={signInWithGoogle}>
             Google sign in
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 }
 
