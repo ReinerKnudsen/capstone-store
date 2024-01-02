@@ -1,4 +1,4 @@
-This ZTM project extends the basic knowledge of React and introduces concepts like context, reducers etc.
+This ZTM project extends the basic knowledge of React and introduces concepts like context, reducers, styled components etc.
 The project supports user subscription and login.
 All data is stored in Google's firebase.
 
