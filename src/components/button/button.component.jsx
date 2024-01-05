@@ -1,26 +1,25 @@
-// Over our application we will get three different button tpes:
-// - default button (black, turns white on hover)
-// - inverted button (white, turns black on hover)
-// - google-sign-in (blue)Def
-
-import { DefaultButton, GoogleButton, InvertedButton } from './button.styles.jsx';
+import {
+  BaseButton,
+  GoogleSignInButton,
+  InvertedButton,
+} from './button.styles';
 
 export const BUTTON_TYPE_CLASSES = {
-  default: 'default',
+  base: 'base',
   google: 'google-sign-in',
   inverted: 'inverted',
 };
 
-const getButton = (buttonType = BUTTON_TYPE_CLASSES.default) =>
+const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
   ({
-    [BUTTON_TYPE_CLASSES.default]: DefaultButton,
-    [BUTTON_TYPE_CLASSES.google]: GoogleButton,
+    [BUTTON_TYPE_CLASSES.base]: BaseButton,
+    [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
   }[buttonType]);
 
-function Button({ children, buttonType, ...buttonOptions }) {
+const Button = ({ children, buttonType, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
-  return <CustomButton {...buttonOptions}>{children}</CustomButton>;
-}
+  return <CustomButton {...otherProps}>{children}</CustomButton>;
+};
 
 export default Button;

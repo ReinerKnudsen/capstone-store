@@ -1,28 +1,24 @@
 import ProductCard from '../product-card/product-card.component';
 
 import {
-  CategoryPreviewMap,
   CategoryPreviewContainer,
-  CategoryTitle,
+  Title,
+  Preview,
 } from './category-preview.styles';
 
 const CategoryPreview = ({ title, products }) => {
   return (
     <CategoryPreviewContainer>
       <h2>
-        <CategoryTitle to={title}>{title.toUpperCase()}</CategoryTitle>
+        <Title to={title}>{title.toUpperCase()}</Title>
       </h2>
-      <CategoryPreviewMap>
-        {
-          // this filters out all elements with the index being > 4
-          // the '_' ignores the first parameter
-          products
-            .filter((_, idx) => idx < 4)
-            .map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
-        }
-      </CategoryPreviewMap>
+      <Preview>
+        {products
+          .filter((_, idx) => idx < 4)
+          .map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </Preview>
     </CategoryPreviewContainer>
   );
 };

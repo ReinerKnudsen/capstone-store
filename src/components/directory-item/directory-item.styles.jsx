@@ -8,7 +8,7 @@ export const BackgroundImage = styled.div`
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
-export const DirectoryItemBody = styled.div`
+export const Body = styled.div`
   height: 90px;
   padding: 0 25px;
   display: flex;
@@ -21,13 +21,14 @@ export const DirectoryItemBody = styled.div`
   position: absolute;
 
   h2 {
-    font-weight: 700;
+    font-weight: bold;
     margin: 0 6px 0;
     font-size: 22px;
     color: #4a4a4a;
+    text-transform: uppercase;
   }
 
-  & p {
+  p {
     font-weight: lighter;
     font-size: 16px;
   }
@@ -44,28 +45,24 @@ export const DirectoryItemContainer = styled.div`
   margin: 0 7.5px 15px;
   overflow: hidden;
 
-  &:hover {
-    cursor: pointer;
-
-    & ${BackgroundImage} {
-      transform: scale(1.1);
-      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-    }
-
-    & ${DirectoryItemBody} {
-      opacity: 0.9;
-    }
-  }
-
-  /* &.large {
-    height: 380px;
-  } */
-
   &:first-child {
     margin-right: 7.5px;
   }
 
   &:last-child {
     margin-left: 7.5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    ${BackgroundImage} {
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    }
+
+    ${Body} {
+      opacity: 0.9;
+    }
   }
 `;

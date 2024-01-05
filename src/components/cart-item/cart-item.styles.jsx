@@ -5,10 +5,10 @@ export const CartItemContainer = styled.div`
   display: flex;
   height: 80px;
   margin-bottom: 15px;
-`;
 
-export const CartItemImage = styled.img`
-  width: 30%;
+  img {
+    width: 30%;
+  }
 `;
 
 export const ItemDetails = styled.div`
@@ -18,9 +18,8 @@ export const ItemDetails = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding: 10px 20px;
-  font-size: 0.9rem;
+
+  span {
+    font-size: 16px;
+  }
 `;
-
-export const ItemName = styled.span``;
-
-export const ItemPrice = styled.span``;

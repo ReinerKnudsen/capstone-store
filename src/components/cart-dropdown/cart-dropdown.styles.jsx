@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { GoogleButton, InvertedButton, DefaultButton } from '../button/button.styles';
+
+import {
+  BaseButton,
+  GoogleSignInButton,
+  InvertedButton,
+} from '../button/button.styles';
 
 export const CartDropdownContainer = styled.div`
   position: absolute;
@@ -14,19 +19,16 @@ export const CartDropdownContainer = styled.div`
   right: 40px;
   z-index: 5;
 
-  ${GoogleButton},
-  ${InvertedButton},
-  ${DefaultButton} {
+  ${BaseButton},
+  ${GoogleSignInButton},
+  ${InvertedButton} {
     margin-top: auto;
-    font-size: 0.8rem;
   }
+`;
 
-  /*  instead of importing an adressing the specific button components, in our case 
-      we could also follow the more generic approach:
-  button {
-    margin-top: auto;
-    font-size: 0.8rem;
-  } */
+export const EmptyMessage = styled.span`
+  font-size: 18px;
+  margin: 50px auto;
 `;
 
 export const CartItems = styled.div`
@@ -34,9 +36,4 @@ export const CartItems = styled.div`
   display: flex;
   flex-direction: column;
   overflow: scroll;
-`;
-
-export const EmptyMessage = styled.span`
-  font-size: 18px;
-  margin: 100px auto;
 `;

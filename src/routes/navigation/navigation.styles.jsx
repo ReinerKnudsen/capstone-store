@@ -8,13 +8,14 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 25px;
 `;
+
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
   padding: 25px;
 `;
 
-export const NavLinksContainer = styled.div`
+export const NavLinks = styled.div`
   width: 50%;
   height: 100%;
   display: flex;

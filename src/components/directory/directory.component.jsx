@@ -1,5 +1,5 @@
-import React from 'react';
 import DirectoryItem from '../directory-item/directory-item.component';
+
 import { DirectoryContainer } from './directory.styles';
 
 const categories = [
@@ -35,7 +35,7 @@ const categories = [
   },
 ];
 
-function Directory() {
+const Directory = () => {
   return (
     <DirectoryContainer>
       {categories.map((category) => (
@@ -43,6 +43,6 @@ function Directory() {
       ))}
     </DirectoryContainer>
   );
-}
+};
 
 export default Directory;

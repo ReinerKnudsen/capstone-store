@@ -10,34 +10,33 @@ export const CheckoutItemContainer = styled.div`
   align-items: center;
 `;
 
-export const CheckoutImageContainer = styled.div`
+export const ImageContainer = styled.div`
   width: 23%;
   padding-right: 15px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
-export const CheckoutImage = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-export const CheckoutProperty = styled.span`
+export const BaseSpan = styled.span`
   width: 23%;
 `;
 
-export const CheckoutQuantity = styled(CheckoutProperty)`
+export const Quantity = styled(BaseSpan)`
   display: flex;
 `;
 
-export const QuantityArrow = styled.div`
+export const Arrow = styled.div`
   cursor: pointer;
 `;
 
-export const CheckoutValue = styled.span`
+export const Value = styled.span`
   margin: 0 10px;
 `;
 
-// 	.remove-button {
-// 		padding-left: 12px;
-// 		cursor: pointer;
-// 	}
-// }
+export const RemoveButton = styled.div`
+  padding-left: 12px;
+  cursor: pointer;
+`;

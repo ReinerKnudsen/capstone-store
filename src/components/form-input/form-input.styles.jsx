@@ -18,8 +18,7 @@ export const FormInputLabel = styled.label`
   left: 5px;
   top: 10px;
   transition: 300ms ease all;
-  /* if the prop 'shrink' is true , evaluate the shrinkLabelStyles properties */
-  ${({ shrink }) => shrink && shrinkLabelStyles}
+  ${({ shrink }) => shrink && shrinkLabelStyles};
 `;
 
 export const Input = styled.input`
@@ -39,9 +38,8 @@ export const Input = styled.input`
     outline: none;
   }
 
-  // find the next sibling 'form-input-label' of the focussed form input
   &:focus ~ ${FormInputLabel} {
-    ${shrinkLabelStyles}
+    ${shrinkLabelStyles};
   }
 `;
 

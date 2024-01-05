@@ -1,44 +1,51 @@
 import { useState } from 'react';
+
+import FormInput from '../form-input/form-input.component';
+import Button from '../button/button.component';
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from '../../utils/firebase.utils';
+} from '../../utils/firebase/firebase.utils';
 
-import FormInput from '../form-input/form-input.component';
-import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-import { SignUpContainer } from './sign-up-form.styles.jsx';
+import { SignUpContainer } from './sign-up-form.styles';
 
-const initialSignUpForm = {
+const defaultFormFields = {
   displayName: '',
   email: '',
   password: '',
   confirmPassword: '',
 };
 
-function SignUpForm() {
-  const [formFields, setFormFields] = useState(initialSignUpForm);
+const SignUpForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const resetForm = () => {
-    setFormFields(initialSignUpForm);
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert('passwords do not match');
       return;
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
       await createUserDocumentFromAuth(user, { displayName });
-      resetForm();
+      resetFormFields();
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('A user with this email already exists');
+        alert('Cannot create user, email already in use');
       } else {
-        console.log('Problems when creating a user', error.message);
+        console.log('user creation encountered an error', error);
       }
     }
   };
@@ -46,59 +53,53 @@ function SignUpForm() {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    // this is interesting; we update the entire state. We spread out all fields
-    // and only change the one which was changed in the form (identified by 'name')
-    // That is actually how to update a state object!!
     setFormFields({ ...formFields, [name]: value });
   };
 
   return (
     <SignUpContainer>
       <h2>Don't have an account?</h2>
-      <span>Sign up with email and password</span>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
-          label='DisplayName'
+          label='Display Name'
           type='text'
           required
+          onChange={handleChange}
           name='displayName'
           value={displayName}
-          onChange={handleChange}
         />
 
         <FormInput
           label='Email'
           type='email'
           required
+          onChange={handleChange}
           name='email'
           value={email}
-          onChange={handleChange}
         />
 
         <FormInput
           label='Password'
           type='password'
           required
+          onChange={handleChange}
           name='password'
           value={password}
-          onChange={handleChange}
         />
 
         <FormInput
-          label='Confirm password'
+          label='Confirm Password'
           type='password'
           required
+          onChange={handleChange}
           name='confirmPassword'
           value={confirmPassword}
-          onChange={handleChange}
         />
-
-        <Button buttonType={BUTTON_TYPE_CLASSES.default} type='submit'>
-          Sign up
-        </Button>
+        <Button type='submit'>Sign Up</Button>
       </form>
     </SignUpContainer>
   );
-}
+};
 
 export default SignUpForm;
