@@ -1,0 +1,5 @@
+const CATEGORIES_ACTION_TYPES = {
+  SET_CATEGORY_MAP: 'category/SET_CATEGORY_MAP',
+};
+
+export default CATEGORIES_ACTION_TYPES;
